@@ -102,10 +102,31 @@ avgGDP = merged['avgGDP'].sort_values(ascending=False)
 # find country with sixth highest average gdp
 gdp6 = merged.sort_values(by=['avgGDP'], ascending=False)
 gdp6 = gdp6[5:6]
+
+# get gdp for selected years
 gdpYears = gdp6[[
     '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014',
     '2015'
 ]]
+
+# find difference between max and min values
 change = gdpYears.max(axis=1) - gdpYears.min(axis=1)
 
-print(change)
+# print(change[0])
+
+################
+# question five
+################
+
+# get the mean per capita energy supply
+meanSupply = merged.loc[:, 'Energy Supply per Capita'].mean()
+
+# print(meanSupply)
+
+################
+# question six
+################
+
+renewable = merged.loc[:, '% Renewable']
+
+print(renewable.max())
