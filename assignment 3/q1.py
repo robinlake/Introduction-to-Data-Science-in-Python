@@ -61,14 +61,51 @@ ScimEn_m = ScimEn[:15]
 
 # merge dataframes
 merged = pd.merge(energy, GDP, left_on='Country', right_on='Country Name')
-merged1 = merged
 merged = pd.merge(ScimEn, merged, left_on='Country', right_on='Country')
-merged2 = merged
+merged2 = merged  # for use in second question
 # only keep top 15 countries
 merged = merged[:15]
 
 # set index to country name
 merged = merged.set_index('Country')
 
-# print(energy['Country'].sort_values()[80:150])
-print(merged)
+# test if pandas is displaying correct information
+# print(merged)
+
+###############
+# question two
+###############
+
+# takes the count of the largest data set (found by examining all three with shape)
+# and subtracting the the count of the merged data set
+# print(GDP.shape[0] - merged2.shape[0])
+
+################
+# question three
+################
+
+# add avgGDP to initial dataframe
+merged['avgGDP'] = merged[[
+    '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014',
+    '2015'
+]].mean(axis=1)
+
+# create sorted avgGDP series
+avgGDP = merged['avgGDP'].sort_values(ascending=False)
+
+# print(avgGDP[:])
+
+################
+# question four
+################
+
+# find country with sixth highest average gdp
+gdp6 = merged.sort_values(by=['avgGDP'], ascending=False)
+gdp6 = gdp6[5:6]
+gdpYears = gdp6[[
+    '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014',
+    '2015'
+]]
+change = gdpYears.max(axis=1) - gdpYears.min(axis=1)
+
+print(change)
