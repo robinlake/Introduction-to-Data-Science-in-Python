@@ -129,4 +129,19 @@ meanSupply = merged.loc[:, 'Energy Supply per Capita'].mean()
 
 renewable = merged.loc[:, '% Renewable']
 
-print(renewable.max())
+# print(renewable.max())
+
+################
+# question seven
+################
+
+# create self citations to total citations ratio
+merged['self/cite'] = merged['Self-citations'] / merged['Citations']
+
+highest = merged.sort_values(by="self/cite", ascending=False)
+highest = highest.iloc[0]
+country = highest['Country Name']
+cite = highest['self/cite']
+answer = [country, cite]
+# highest = highest.loc[['Country', 'self/cite']]
+print(answer)
